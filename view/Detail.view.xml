@@ -1,0 +1,64 @@
+<mvc:View
+    controllerName="test.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+    displayBlock="true"
+	xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m"
+>
+    <Page title="Detail" showNavButton="true" navButtonPress="onNavBack">
+	<ObjectHeader
+		
+		title="{title}"
+		number="{path: 'pricePerMonth', type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}"
+		numberUnit="€ / Monat">
+	</ObjectHeader>
+		<IconTabBar expandable="false"
+		id="idIconTabBarNoIcons"
+		class="sapUiResponsiveContentPadding">
+		<items>
+			<IconTabFilter text="Eigenschaften" key="info">
+				<VBox items="{features}" class="sapUiTinyMargin">
+					<Text text="⦁ {text}"/>
+				</VBox>
+			</IconTabFilter>
+			<IconTabFilter text="Kontakt" key="attachments">
+				<f:SimpleForm id="SimpleFormChange354"
+			editable="true"
+			layout="ResponsiveGridLayout"
+			title="Kontaktformular"
+			labelSpanXL="3"
+			labelSpanL="3"
+			labelSpanM="3"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="4"
+			emptySpanL="4"
+			emptySpanM="4"
+			emptySpanS="0"
+			columnsXL="1"
+			columnsL="1"
+			columnsM="1"
+			singleContainerFullSize="false" >
+			<f:content>
+				<Label text="Vorname"/>
+				<Input id="inpFirstname" value="{contact>/firstName}" placeholder="Max" required="true"/>
+				<Label text="Vorname" />
+				<Input id="inpLastname" value="{contact>/lastName}" placeholder="Mustermann" required="true"/>
+				<Label text="Tel.nr." />
+				<Input value="{contact>/phone}" placeholder="+436761234567"/>
+				<Label text="Mailadresse" />
+				<Input id="inpEmail" value="{contact>/email}" placeholder="max.mustermann@gmail.com" required="true"/>
+				<Label text="Betreff" />
+				<Input id="inpTitle" value="{contact>/title}" placeholder="Anfrage, Beschwerde, ..." required="true"/>
+				<Label text="Nachricht" />
+				<TextArea id="inpComment" value="{contact>/comment}" rows="5" required="true"/>
+				<Label/>
+				<Button text="Absenden" press="onPressed" type="Accept" icon="sap-icon://letter"/>
+			</f:content>
+		</f:SimpleForm>
+			</IconTabFilter>
+		</items>
+	</IconTabBar>
+    </Page>
+</mvc:View>

@@ -1,0 +1,1 @@
+sap.ui.define(["sap/ui/test/Opa5","test/localService/mockserver"],function(t,e){"use strict";return t.extend("test.test.integration.arrangements.Startup",{iStartMyApp:function(t){var a=t||{};a.delay=a.delay||50;var i=e.init(a);this.iWaitForPromise(i);this.iStartMyUIComponent({componentConfig:{name:"test",async:true},hash:a.hash,autoWait:a.autoWait})}})});

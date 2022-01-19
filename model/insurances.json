@@ -1,0 +1,23 @@
+{"insurances": [
+    {
+      "id": 0,
+      "title": "Versicherung A",
+      "type": "Vollkasko",
+      "features": [{"text": "24/7 Verfügbarkeit"}, {"text": "25 Jahre Erfahrung"}],
+      "pricePerMonth": 105
+    },
+    {
+      "id": 1,
+      "title": "Versicherung B",
+      "type": "Vollkasko",
+      "features": [{"text": "keine Vor-Ort-Beratung"}, {"text": "Neukundenboni"}],
+      "pricePerMonth": 98
+    },
+    {
+      "id": 2,
+      "title": "Versicherung C",
+      "type": "Teilkasko",
+      "features": [{"text": "professionelle Beratung"}, {"text": "virtuelle Einzelgespräche"}],
+      "pricePerMonth": 89
+    }
+  ]}

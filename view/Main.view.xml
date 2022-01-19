@@ -1,0 +1,96 @@
+<mvc:View
+    controllerName="test.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+    displayBlock="true"
+    xmlns="sap.m"
+	xmlns:fb="sap.ui.comp.filterbar"
+>
+    <Page title="Versicherungsportal">
+<fb:FilterBar id="filterBar" reset="onReset" search="onSearch" clear="onClear" cancel="onCancel" showFilterConfiguration="{device>/system/phone}"
+		    filterBarExpanded="{detail>/fBExpanded}" filtersDialogSearch="onSearch" showRestoreOnFB="{= ( ${device>/system/desktop} || ${device>/system/tablet} ) &amp;&amp; ${detail>/fBExpanded} }" showGoOnFB="{= ( ${device>/system/desktop} || ${device>/system/tablet} ) &amp;&amp; ${detail>/fBExpanded} }" header="">
+			
+			<fb:filterGroupItems>
+				<fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="Typ" partOfCurrentVariant="true" visibleInFilterBar="true">
+					<fb:control>
+						<MultiComboBox selectedKeys="{filter>/keys}">
+							<core:Item key="Teilkasko" text="Teilkasko"/>
+							<core:Item key="Vollkasko" text="Vollkasko"/>
+						</MultiComboBox>
+					</fb:control>
+				</fb:FilterGroupItem>
+				<fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="Marke" partOfCurrentVariant="true" visibleInFilterBar="true">
+					<fb:control>
+						<Select>
+
+						</Select>
+					</fb:control>
+				</fb:FilterGroupItem>
+				<fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="Typ" partOfCurrentVariant="true" visibleInFilterBar="true">
+					<fb:control>
+						<Select>
+
+						</Select>
+					</fb:control>
+				</fb:FilterGroupItem>
+				<fb:FilterGroupItem groupName="__$INTERNAL$" name="D" label="Motorisierung" partOfCurrentVariant="true" visibleInFilterBar="true">
+					<fb:control>
+						<Select>
+
+						</Select>
+					</fb:control>
+				</fb:FilterGroupItem>
+				<fb:FilterGroupItem groupName="__$INTERNAL$" name="E" label="Preis (€ / Monat)" partOfCurrentVariant="true" visibleInFilterBar="true">
+					<fb:control>
+						<RangeSlider showAdvancedTooltip="true" min="0" max="500" step="10" range="{filter>/range}" enableTickmarks="true" class="sapUiSmallMarginBottom"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+			</fb:filterGroupItems>
+	    </fb:FilterBar>
+        <Table id="idTable"
+		inset="false"
+		mode="MultiSelect" alternateRowColors="true"
+        noDataText="Keine Daten gefunden! Prüfen Sie Ihre Filterbedingungen und versuchen Sie es nochmal!"
+        selectionChange="onTableSelectionChanged"
+		items="{
+			path: '/insurances',
+			sorter: {
+				path: 'title'
+			}
+		}">
+		<headerToolbar>
+			<OverflowToolbar>
+				<Title text="Versicherungen ({detail>/itemsLength})" titleStyle="H3"/>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://compare-2" text="Auswahl vergleichen" enabled="{detail>/compareEnabled}" type="Transparent" press="onCompare"/>
+			</OverflowToolbar>
+		</headerToolbar>
+		<columns>
+			<Column>
+				<Text text="Name" />
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="Typ" />
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="Eigenschaften" />
+			</Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="End">
+				<Text text="Preis" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem type="Navigation" press="onNavToDetail">
+				<cells>
+					<ObjectIdentifier title="{title}"/>
+                    <Text text="{type}" />
+                    <VBox items="{features}" class="sapUiTinyMarginTop sapUiTinyMarginBottom">
+                        <Text text="⦁ {text}"/>
+                    </VBox>
+					<ObjectNumber number="{path: 'pricePerMonth', type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}" unit="€ / Monat"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+    </Page>
+</mvc:View>
