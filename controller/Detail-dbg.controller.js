@@ -29,6 +29,10 @@ sap.ui.define([
                 }), "contact");
             },
 
+            onLiveChange: function(oEvent){
+                oEvent.getSource().setValueState("None");
+            },
+
             onPressed: function(){
                 let oInput = this.getView().getModel("contact").getData();
                 let bOk = true;
@@ -59,7 +63,7 @@ sap.ui.define([
 
                 if(!oInput.title){
                     this.getView().byId("inpTitle").setValueState("Error");
-                    this.getView().byId("inpTitle").setValueStateText("Titel bitte befüllen!");
+                    this.getView().byId("inpTitle").setValueStateText("Betreff bitte befüllen!");
                     bOk = false;
                 }else{
                     this.getView().byId("inpTitle").setValueState("None");

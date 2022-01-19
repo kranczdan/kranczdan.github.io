@@ -2,12 +2,14 @@ sap.ui.define([
     "test/controller/BaseController",
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator"
+    "sap/ui/model/FilterOperator",
+    "sap/ui/model/Sorter",
+    "sap/ui/core/Fragment"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, Filter, FilterOperator) {
+    function (Controller, JSONModel, Filter, FilterOperator, Sorter, Fragment) {
         "use strict";
 
         return Controller.extend("test.controller.Main", {
@@ -15,6 +17,9 @@ sap.ui.define([
             onInit: function () {
                 this.getOwnerComponent().getRouter().getRoute("Main").attachPatternMatched(this.onPatternMatched, this);
                 this.setContentDensity();
+
+                this.bSorted = true;
+                this.sSortText = "Nach Name aufsteigend sortiert";
             },
 
             onAfterRendering: function(){
@@ -35,7 +40,9 @@ sap.ui.define([
                 this.getView().setModel(new JSONModel({
                     itemsLength: this.getView().byId("idTable").getItems().length,
                     compareEnabled: bCompare,
-                    fBExpanded: false
+                    fBExpanded: false,
+                    sorted: this.bSorted,
+                    sortText: this.sSortText
                 }), "detail");
             },
 
@@ -90,6 +97,41 @@ sap.ui.define([
                 this.getOwnerComponent().getRouter().navTo("Compare", {
                     ids: sIds.slice(0,-1)
                 });
-            }
+            },
+
+            onOpenSort: function(){
+                var oView = this.getView();
+			if (!this._oSortDialog) {
+				Fragment.load({
+					id: oView.getId(),
+					name: "test.view.Sort",
+					controller: this
+				}).then(function (oDialog) {
+					this._oSortDialog = oDialog;
+					jQuery.sap.syncStyleClass(oView.getController().getContentDensityClass(), oView, oDialog);
+					this.getView().addDependent(this._oSortDialog);
+					this._oSortDialog.open();
+				}.bind(this));
+			} else {
+				this._oSortDialog.open();
+			}
+            },
+
+            handleSort: function (oEvent) {
+                var sPath = oEvent.getParameters().sortItem.getKey();
+                var sText = oEvent.getParameters().sortItem.getText();
+                var bDescending = oEvent.getParameters().sortDescending;
+                
+                var oSorter = new Sorter({
+                    path: sPath,
+                    descending: bDescending
+                });
+
+                this.sSortText = "Nach " + sText + " " + (bDescending ? "absteigend" : "aufsteigend") + " sortiert";
+
+                this.getView().getModel("detail").setProperty("/sortText", this.sSortText);
+
+                this.getView().byId("idTable").getBinding("items").sort(oSorter);
+            },
         });
     });

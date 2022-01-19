@@ -63,8 +63,14 @@
 				<Title text="Versicherungen ({detail>/itemsLength})" titleStyle="H3"/>
 				<ToolbarSpacer/>
 				<Button icon="sap-icon://compare-2" text="Auswahl vergleichen" enabled="{detail>/compareEnabled}" type="Transparent" press="onCompare"/>
+				<Button icon="sap-icon://sort" text="Sortierung" press="onOpenSort"/>
 			</OverflowToolbar>
 		</headerToolbar>
+		<infoToolbar>
+			<OverflowToolbar visible="{detail>/sorted}">
+				<Label text="{detail>/sortText}"/>
+			</OverflowToolbar>
+		</infoToolbar>
 		<columns>
 			<Column>
 				<Text text="Name" />
@@ -84,7 +90,7 @@
 				<cells>
 					<ObjectIdentifier title="{title}"/>
                     <Text text="{type}" />
-                    <VBox items="{features}" class="sapUiTinyMarginTop sapUiTinyMarginBottom">
+                    <VBox items="{path: 'features', templateShareable: false}" class="sapUiTinyMarginTop sapUiTinyMarginBottom">
                         <Text text="⦁ {text}"/>
                     </VBox>
 					<ObjectNumber number="{path: 'pricePerMonth', type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}" unit="€ / Monat"/>

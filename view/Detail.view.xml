@@ -42,17 +42,17 @@
 			singleContainerFullSize="false" >
 			<f:content>
 				<Label text="Vorname"/>
-				<Input id="inpFirstname" value="{contact>/firstName}" placeholder="Max" required="true"/>
+				<Input id="inpFirstname" value="{contact>/firstName}" placeholder="Max" required="true" liveChange="onLiveChange"/>
 				<Label text="Vorname" />
-				<Input id="inpLastname" value="{contact>/lastName}" placeholder="Mustermann" required="true"/>
+				<Input id="inpLastname" value="{contact>/lastName}" placeholder="Mustermann" required="true" liveChange="onLiveChange"/>
 				<Label text="Tel.nr." />
 				<Input value="{contact>/phone}" placeholder="+436761234567"/>
 				<Label text="Mailadresse" />
-				<Input id="inpEmail" value="{contact>/email}" placeholder="max.mustermann@gmail.com" required="true"/>
+				<Input id="inpEmail" value="{contact>/email}" placeholder="max.mustermann@gmail.com" required="true" liveChange="onLiveChange"/>
 				<Label text="Betreff" />
-				<Input id="inpTitle" value="{contact>/title}" placeholder="Anfrage, Beschwerde, ..." required="true"/>
+				<Input id="inpTitle" value="{contact>/title}" placeholder="Anfrage, Beschwerde, ..." required="true" liveChange="onLiveChange"/>
 				<Label text="Nachricht" />
-				<TextArea id="inpComment" value="{contact>/comment}" rows="5" required="true"/>
+				<TextArea id="inpComment" value="{contact>/comment}" rows="5" required="true" liveChange="onLiveChange"/>
 				<Label/>
 				<Button text="Absenden" press="onPressed" type="Accept" icon="sap-icon://letter"/>
 			</f:content>
